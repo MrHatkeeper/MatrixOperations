@@ -2,6 +2,8 @@ package cz.educanet.tranformations;
 
 public interface IMatrix {
 
+
+
     /**
      * Multiplies the two matrices together and returns the resulting matrix.
      * @param matrix
@@ -18,10 +20,10 @@ public interface IMatrix {
 
     /**
      * Adds two matrices
-     * @param matrix
+     * @param matrixA
      * @return sum of the two matrices
      */
-    IMatrix add(IMatrix matrix);
+    IMatrix add(IMatrix matrixA);
 
     /**
      * Transposes the matrix (flips rows and columns)

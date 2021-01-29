@@ -8,10 +8,17 @@ import static org.junit.Assert.*;
 
 public class MatrixTest {
 
+
+    public static void main(String[] args) {
+
+    }
+
     private IMatrix a;
     private IMatrix b;
     private IMatrix c;
     private IMatrix d;
+    private IMatrix e;
+    private IMatrix f;
     private IMatrix empty;
 
     @Before
@@ -21,6 +28,7 @@ public class MatrixTest {
                 {1, 1, 1},
         };
         a = MatrixFactory.create(rawA);
+
 
         double[][] rawB = {
                 {1, 1, 1},
@@ -35,6 +43,7 @@ public class MatrixTest {
         };
         c = MatrixFactory.create(rawC);
 
+
         double[][] rawEmpty = {};
         empty = MatrixFactory.create(rawEmpty);
 
@@ -42,7 +51,24 @@ public class MatrixTest {
                 {1, 1}
         };
         d = MatrixFactory.create(rawD);
+
+
+        double[][] rawE = {
+                {1, 2},
+                {3, 4},
+                {5, 6},
+        };
+        e = MatrixFactory.create(rawE);
+
+        double[][] rawF = {
+                {1, 2, 3},
+                {4, 5, 6}
+        };
+        f = MatrixFactory.create(rawF);
+
+
     }
+
 
     @Test
     public void getRows() {
@@ -63,18 +89,56 @@ public class MatrixTest {
 
     @Test
     public void times() {
+        double[][] test = {
+                {22.0, 28.0},
+                {49.0, 64.0},
+        };
+
+        IMatrix testMatrix = MatrixFactory.create(test);
+        IMatrix finalMatrix = f.times(e);
+
+        for (int i = 0; i < test.length; i++){
+            for (int j = 0; j < test[i].length;j++){
+                assertEquals(testMatrix.get(i,j), finalMatrix.get(i,j), 0.05);
+            }
+        }
+
     }
 
     @Test
     public void timesScalar() {
+
+        double[][] test = {
+                {5.0, 5.0, 5.0},
+                {5.0, 5.0, 5.0},
+        };
+        IMatrix testMatrix = MatrixFactory.create(test);
+        IMatrix finalMatrix = a.times(5.0);
+
+        
+        for (int i = 0; i < test.length; i++){
+            for (int j = 0; j < test[i].length; j++){
+                assertEquals(testMatrix.get(i, j), finalMatrix.get(i,j), 0.05);
+            }
+        }
     }
 
     @Test
     public void add() {
+
+
+        double[][] testAdd = {
+                {2, 1, 1},
+                {1, 1, 1},
+                {0, 0, 1},
+        };
+
+       assertEquals(testAdd, b.add(c));
     }
 
     @Test
     public void get() {
+        assertEquals(1, a.get(1,0), 1);
     }
 
     @Test
@@ -85,3 +149,5 @@ public class MatrixTest {
     public void determinant() {
     }
 }
+
+

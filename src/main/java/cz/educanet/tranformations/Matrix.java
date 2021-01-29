@@ -1,7 +1,5 @@
 package cz.educanet.tranformations;
 
-import kotlin.NotImplementedError;
-
 import java.util.Arrays;
 
 public class Matrix implements IMatrix {
@@ -25,25 +23,62 @@ public class Matrix implements IMatrix {
         return 0;
     }
 
+
+
     @Override
     public IMatrix times(IMatrix matrix) {
-        throw new NotImplementedError(); // TODO:
+
+        double[][] finalMatrix = new double[matrix.getRows() - rawArray.length + 1][rawArray[0].length - matrix.getColumns() + 1];
+
+
+        for(int i = 0; i < finalMatrix.length; i++){
+            for(int j = 0; j < rawArray.length; j++){
+                for (int k = 0; k < rawArray[i].length; k++){
+                    finalMatrix[i][j] += rawArray[i][k] * matrix.get(k,j);
+                }
+            }
+        }
+        return MatrixFactory.create(finalMatrix);
     }
+
+
 
     @Override
     public IMatrix times(Number scalar) {
-        throw new NotImplementedError(); // TODO:
+
+        double[][] result = new double[rawArray.length][rawArray[0].length];
+
+        for(int i = 0; i < result.length; i++){
+            for (int j = 0; j < result[i].length; j++){
+                result[i][j] += rawArray[i][j] * (double) scalar;
+            }
+        }
+        return MatrixFactory.create((result));
     }
 
+
+
     @Override
-    public IMatrix add(IMatrix matrix) {
-        throw new NotImplementedError(); // TODO:
+    public IMatrix add(IMatrix matrixA) {
+        double[][] result = new double[matrixA.getColumns()][matrixA.getRows()];
+
+        for(int i = 0; i < result.length; i++){
+            for(int j = 0; j < 0; j++){
+                result[i][j] = matrixA.get(i,j) + rawArray[i][j];
+            }
+        }
+        return MatrixFactory.create((result));
     }
+
+
 
     @Override
     public double get(int n, int m) {
-        throw new NotImplementedError(); // TODO:
+
+        return rawArray[n][m];
     }
+
+    
 
     //region Optional
     @Override
@@ -64,6 +99,7 @@ public class Matrix implements IMatrix {
         Matrix matrix = (Matrix) o;
         return Arrays.equals(rawArray, matrix.rawArray);
     }
+
 
     @Override
     public int hashCode() {
