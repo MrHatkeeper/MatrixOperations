@@ -78,7 +78,7 @@ public class Matrix implements IMatrix {
         return rawArray[n][m];
     }
 
-    
+
 
     //region Optional
     @Override
